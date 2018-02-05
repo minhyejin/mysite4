@@ -35,12 +35,8 @@ public class BoardService {
 	public void delete(int no) {
 		boardDao.delete(no);		
 	}
-	public void modify(BoardVo modifyboardVo) {
-		
-		BoardVo boardVo = getArticle(modifyboardVo.getNo());
-		boardVo.setTitle(modifyboardVo.getTitle());
-		String modifycontent = (modifyboardVo.getContent().replace("\r\n", "<br>"));
-		boardVo.setContent(modifycontent);
+	public void modify(BoardVo boardVo) {
+		System.out.println(boardVo);
 		boardDao.modify(boardVo);
 	}
 }

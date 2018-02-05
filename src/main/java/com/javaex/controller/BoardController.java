@@ -65,7 +65,7 @@ import com.javaex.vo.UserVo;
 		return "redirect:/board/list";
 	}
 	
-	@RequestMapping(value ="modifyform", method = RequestMethod.GET)
+	@RequestMapping(value ="/modifyform", method = RequestMethod.GET)
 	public String modifyform(HttpSession session, Model model, @RequestParam("no") int no) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if ((authUser != null)){//로그인성공
@@ -78,10 +78,10 @@ import com.javaex.vo.UserVo;
 			return "redirect:/board/list";
 		}	
 	}
-	@RequestMapping(value ="modify", method = RequestMethod.GET)
+	@RequestMapping(value ="/modify", method = RequestMethod.GET)
 	public String modify(HttpSession session,BoardVo boardVo) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if ((authUser != null) && (authUser.getNo() == boardVo.getUserNo())) {
+		if ((authUser != null)) {
 			boardService.modify(boardVo);
 		}
 			return "redirect:/board/list";
