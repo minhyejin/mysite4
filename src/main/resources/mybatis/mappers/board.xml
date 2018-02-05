@@ -5,35 +5,51 @@
 	<select id = "selectList" resultType = "com.javaex.vo.BoardVo">
 			<![CDATA[
 		  select b.no, b.title, b.writer , u.name as userName , b.content, 
-		    	 to_char(b.reg_date,'YYYY-MM-DD HH:MM ') regDate, b.hit , u.no user_no
+		    	 to_char(b.reg_date,'YYYY-MM-DD HH:MM ') regDate, b.hit , u.no userNo
 		   from board b, users u
 		  where b.user_no = u.no
 		  order by b.no desc 
 			]]>
 	</select>	
 	
-		<select id = "getArticle" resultType = "com.javaex.vo.BoardVo">
+	<select id = "getArticle" resultType = "com.javaex.vo.BoardVo">
 			<![CDATA[
-		  select no , title , content ,  user_no , reg_date, writer,  hit  
+		  select no , title , content ,  user_no userNo, reg_date regDate, writer,  hit  
 		  from board 
 		  where no = #{no} 
 			]]>
 	</select>	
 	
-	<insert id = "insert"  parameterType= "com.javaex.vo.GuestbookVo">
+	<insert id = "insert"  parameterType= "com.javaex.vo.BoardVo">
 		<![CDATA[
 		  	insert into board 
-			values (seq_board_no.nextval, #{title} , #{content}  , #{userNo} , sysdate , #{writer}, 0 ) 
+			values (seq_board_no.nextval, #{title} , #{content} ,#{userNo},  sysdate , #{writer} , 0 ) 
 				]]>
 	</insert>
 	
 
-	<update id = "view"  parameterType= "com.javaex.vo.GuestbookVo">
+	<update id = "view"  parameterType= "com.javaex.vo.BoardVo">
 		<![CDATA[
 		update board
 		SET hit = hit + 1 
 		WHERE no = #{no}
 		]]>
 	</update>
+	
+	<delete id = "delete" parameterType = "com.javaex.vo.BoardVo">
+		<![CDATA[
+		delete board
+		where no = #{no}
+		]]>
+
+	</delete>
+	<update id = "modify"  parameterType= "com.javaex.vo.BoardVo">
+		<![CDATA[
+		update board
+		SET  title = #{title} , content = #{content}
+		WHERE no = #{no}
+		]]>
+	</update>
+	
 	
 </mapper>

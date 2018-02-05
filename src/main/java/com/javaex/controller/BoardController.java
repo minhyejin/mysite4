@@ -44,18 +44,48 @@ import com.javaex.vo.UserVo;
 		if (authUser == null) {
 			return "redirect:/board/list";	
 		}
-		return "board/write";
-		
+		return "board/write";		
 	}
 	@RequestMapping(value ="/write", method = RequestMethod.GET)
 	public String write(HttpSession session, @ModelAttribute BoardVo boardVo) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		boardVo.setUserNo(authUser.getNo());
+		boardVo.setWriter(authUser.getName());
 		if (authUser != null) {
 			boardService.write(boardVo);
 		}
 		return "redirect:/board/list";
 	}
+	@RequestMapping(value ="/delete", method = RequestMethod.GET)
+	public String delete(HttpSession session, @RequestParam("no") int no, @RequestParam("userNo") int userNo  ) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if ((authUser != null) && (authUser.getNo() == userNo)) {
+		boardService.delete(no);	
+		}
+		return "redirect:/board/list";
+	}
 	
+	@RequestMapping(value ="modifyform", method = RequestMethod.GET)
+	public String modifyform(HttpSession session, Model model, @RequestParam("no") int no) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if ((authUser != null)){//로그인성공
+			BoardVo getarticle = boardService.getArticle(no);
+			model.addAttribute("boardVo", getarticle);
+			model.addAttribute("no", no);
+	
+			return "board/modify";
+		}else {
+			return "redirect:/board/list";
+		}	
+	}
+	@RequestMapping(value ="modify", method = RequestMethod.GET)
+	public String modify(HttpSession session,BoardVo boardVo) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if ((authUser != null) && (authUser.getNo() == boardVo.getUserNo())) {
+			boardService.modify(boardVo);
+		}
+			return "redirect:/board/list";
+	}
 	
 	
 }

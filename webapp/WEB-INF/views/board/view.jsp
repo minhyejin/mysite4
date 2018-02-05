@@ -29,7 +29,7 @@
 						<td>
 							<div class="view-content">
 								${boardVo.content }
-					
+					 
 								
 							</div>
 						</td>
@@ -38,7 +38,7 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board/list">글목록</a>
 					<c:if test="${boardVo.userNo == authUser.no}">
-					<a href="board/modifyform?no=${boardVo.no}">글수정</a>
+					<a href="${pageContext.request.contextPath }/board/modifyform?no=${boardVo.no}">글수정</a>
 					</c:if>
 				</div>
 			</div>

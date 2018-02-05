@@ -28,8 +28,19 @@ public class BoardService {
 		boardDao.updateHit(no);
 
 		return boardVo;
+		
 	}public void write(BoardVo boardVo) {
-		boardDao.write(boardVo);
-	
+		boardDao.write(boardVo);	
+	}
+	public void delete(int no) {
+		boardDao.delete(no);		
+	}
+	public void modify(BoardVo modifyboardVo) {
+		
+		BoardVo boardVo = getArticle(modifyboardVo.getNo());
+		boardVo.setTitle(modifyboardVo.getTitle());
+		String modifycontent = (modifyboardVo.getContent().replace("\r\n", "<br>"));
+		boardVo.setContent(modifycontent);
+		boardDao.modify(boardVo);
 	}
 }

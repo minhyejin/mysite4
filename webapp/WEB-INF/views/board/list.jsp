@@ -24,12 +24,12 @@
 			
 				<table class="tbl-ex">
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>글쓴이</th>
-						<th>조회수</th>
-						<th>작성일</th>
-						<th>&nbsp;</th>
+						<th width ="10%">번호</th>
+						<th width ="20%">제목</th>
+						<th width ="20%">글쓴이</th>
+						<th width ="15%">조회수</th>
+						<th width ="25%">작성일</th>
+						<th width ="10%">&nbsp;</th>
 					</tr>
 					<c:forEach items = "${bList }" var ="boardVo" >		
 						<tr>
@@ -38,8 +38,9 @@
 						<td>${boardVo.writer}</td>
 						<td>${boardVo.hit }</td>
 						<td>${boardVo.regDate }</td>
-						<td><c:if test="${boardVo.userNo == authUser.no}">
-						<a href="board/delete?no=${boardVo.no}&userNo=${boardVo.userNo}" class="del">삭제</a>
+						<td>
+						<c:if test="${boardVo.userNo == authUser.no}">
+						<p align="center"><a href="${pageContext.request.contextPath }/board/delete?no=${boardVo.no}&userNo=${boardVo.userNo}" class="del">삭제</a></p>
 						</c:if></td>
 						</tr>
 				</c:forEach>

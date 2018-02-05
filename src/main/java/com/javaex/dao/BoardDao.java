@@ -26,7 +26,6 @@ public class BoardDao {
 	}
 	public void updateHit(int no) {
 		sqlsession.update("board.view", no);
-		System.out.println("hit 완료");
 	
 	}
 	
@@ -35,4 +34,14 @@ public class BoardDao {
 		System.out.println("write 완료");
 		
 	}
+	public void delete(int no) {
+		sqlsession.delete("board.delete", no);
+		System.out.println("delete완료");
+		
+	}
+	public void modify(BoardVo boardVo) {
+		sqlsession.update("board.modify", boardVo);
+		System.out.println("modify 완료");
+	}
+	
 }
