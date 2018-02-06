@@ -50,6 +50,14 @@
 		WHERE no = #{no}
 		]]>
 	</update>
-	
+	<select id = "selectsearch" resultType = "com.javaex.vo.BoardVo" parameterType = "string">
+			<![CDATA[
+		  select b.no, b.title, b.writer , u.name as userName , b.content, 
+		    	 to_char(b.reg_date,'YYYY-MM-DD HH:MM ') regDate, b.hit , u.no userNo
+		   from board b, users u
+		  where b.user_no = u.no and b.title like #{kwd}
+		  order by b.no desc 
+			]]>
+	</select>	
 	
 </mapper>

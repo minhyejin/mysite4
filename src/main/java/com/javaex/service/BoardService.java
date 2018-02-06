@@ -26,7 +26,6 @@ public class BoardService {
 		
 		BoardVo boardVo = getArticle(no);
 		boardDao.updateHit(no);
-
 		return boardVo;
 		
 	}public void write(BoardVo boardVo) {
@@ -36,7 +35,11 @@ public class BoardService {
 		boardDao.delete(no);		
 	}
 	public void modify(BoardVo boardVo) {
-		System.out.println(boardVo);
 		boardDao.modify(boardVo);
+	}
+	public List<BoardVo> search(String kwd) {
+		return boardDao.search(kwd);
+		
+		
 	}
 }

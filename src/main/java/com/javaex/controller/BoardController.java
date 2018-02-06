@@ -69,8 +69,8 @@ import com.javaex.vo.UserVo;
 	public String modifyform(HttpSession session, Model model, @RequestParam("no") int no) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if ((authUser != null)){//로그인성공
-			BoardVo getarticle = boardService.getArticle(no);
-			model.addAttribute("boardVo", getarticle);
+			BoardVo boardVo = boardService.getArticle(no);
+			model.addAttribute("boardVo", boardVo);
 			model.addAttribute("no", no);
 	
 			return "board/modify";
@@ -85,6 +85,12 @@ import com.javaex.vo.UserVo;
 			boardService.modify(boardVo);
 		}
 			return "redirect:/board/list";
+	}
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search( @RequestParam String kwd, Model model) {
+		List<BoardVo> bList = boardService.search(kwd);
+		model.addAttribute("bList", bList);
+		return "board/list";
 	}
 	
 	

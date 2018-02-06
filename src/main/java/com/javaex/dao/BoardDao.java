@@ -19,6 +19,7 @@ public class BoardDao {
 		return bList;
 		
 	}
+	
 	public BoardVo getArticle(int no) {
 		
 		 return sqlsession.selectOne("board.getArticle", no);
@@ -43,5 +44,8 @@ public class BoardDao {
 		sqlsession.update("board.modify", boardVo);
 		System.out.println("modify 완료");
 	}
-	
+	public List<BoardVo> search(String kwd) {
+		return sqlsession.selectList("board.selectsearch","%" + kwd + "%");
+		
+	}
 }
