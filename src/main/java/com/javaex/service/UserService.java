@@ -35,4 +35,15 @@ public class UserService {
 	public UserVo getUser(int no) {
 		return userDao.getUser(no);
 	}
+	public boolean getUser(String email) {
+		boolean result;
+		UserVo userVo = userDao.getUser(email);
+		if(userVo != null) {
+			result = false;
+			
+		}else {
+			
+			result = true;
+		}return result;
+	}
 }

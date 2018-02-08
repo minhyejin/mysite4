@@ -34,7 +34,7 @@
 						<input name="password" type="password" value="${userVo.password }" />
 						
 						
-							<label>성별</label>
+							<br><label>성별</label>
 							
 							<c:choose> 
 							<c:when test = "${'male' == userVo.gender}">
@@ -52,7 +52,7 @@
 							</c:choose>
 						
 						<input type="hidden" name="no" value="${userVo.no }">
-						<input type="text" name="a" value="modify">
+						<!-- <input type="text" name="a" value="modify"> -->
 						<input type="submit" value="수정완료">
 						
 					</form>

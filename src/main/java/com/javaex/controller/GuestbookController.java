@@ -57,6 +57,12 @@ public class GuestbookController {
 		
 		return "redirect:/guestbook/list";
 	}
+	@RequestMapping(value = "/listajax", method = RequestMethod.GET)
+	public String Listajax(){
+		return "guestbook/listajax";
+		
+		
+	}
 	
 
 }

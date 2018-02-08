@@ -31,8 +31,13 @@ public class UserDao {
 	}
 
 	public UserVo getUser(int no) {
-		
+		System.out.println(no);
 		return sqlsession.selectOne("user.selectUserByNo", no);//고쳐야함
 		
+	}
+	
+	public UserVo getUser(String email) {
+	 
+		return sqlsession.selectOne("user.selectUserByEmail",email);
 	}
 }

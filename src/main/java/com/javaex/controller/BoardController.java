@@ -21,6 +21,7 @@ import com.javaex.vo.UserVo;
 	public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 	List<BoardVo> bList = boardService.boardList();
@@ -31,8 +32,8 @@ import com.javaex.vo.UserVo;
 	public String getArticle(@RequestParam("no") int no , Model model) {
 		BoardVo view = boardService.view(no);
 		model.addAttribute("boardVo",view);
-		BoardVo getarticle = boardService.getArticle(no);
-		model.addAttribute("boardVo", getarticle);
+		BoardVo boardVo = boardService.getArticle(no);
+		model.addAttribute("boardVo", boardVo);
 		model.addAttribute("no", no);
 
 		return "board/view";
