@@ -42,6 +42,6 @@ public class ApiGuestbookController {
 		guestbookService.delete(no, password);
 		return no;
 	}
-	
+	 
 	
 }
