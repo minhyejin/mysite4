@@ -66,7 +66,7 @@
 				<div class="modal-body">
 					<label>비밀번호</label>
 					<input type="password" name="modalPassword" id="modalPassword"><br>
-					<input type="text" name="modalNo" value="" id="modalNo"> <br>
+					<input type="hidden" name="modalNo" value="" id="modalNo"> <br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -81,7 +81,12 @@
 </body>
 
 <script type="text/javascript">
-	
+$("ul").on("click", ".deletebutton", function(){		
+	var no = $(this).data("no");
+	$("#del-pop").modal();
+	$("#modalNo").val(no);//no값을 modalNo에 저장 
+	$("#modalPassword").val("");//입력받는 password를 modalPassword에 저장 
+});	
 	$("#btn_del").on("click", function(){
 		var guestbookVo = {
 				no : $("#modalNo").val(),
@@ -96,13 +101,17 @@
 			data :JSON.stringify(guestbookVo),//guestbookVo를 apicontroller로 보냄
 			//받을 때 데이터 타입
 			dataType : "json",
-			success : function(result) {
-				if(result){
+			success : function(no) {
+				if(no){
+					
+					$(".liNo"+ guestbookVo.no ).remove(); 
+					console.log(guestbookVo.no)
 					$("#del-pop").modal("hide");
-					/* $("[id="+no+"]").remove(); */
-				     location.reload();//새로고침1번 
+				   // location.reload();//새로고침1번  
+					$("#modalPassword").val(""); //password 비우기
 				}else {
 					console.log("제거 실패");
+					$("#modalPassword").val(""); 
 				}
 			},
 			error : function(XHR, status, error) {
@@ -110,12 +119,7 @@
 			}
 		});	
 	});	
-	$("ul").on("click", ".deletebutton", function(){		
-		var no = $(this).data("no");
-		$("#del-pop").modal();
-		$("#modalNo").val(no);//no값을 modalNo에 저장 
-		$("#modalPassword").val("");//입력받는 password를 modalPassword에 저장 
-	});	
+	
 	$("#insert").on("click",function(){
 		var name =$("#name").val();
 		var password = $("#password").val();
@@ -138,6 +142,9 @@
 				console.log(guestbookVo);
 				render(guestbookVo , "up");
 				$('table').val('Default Value');
+				$('#name').val("");
+				$('#password').val("");
+				$('.article').val("");
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
@@ -178,7 +185,7 @@
 	function render(guestbookVo, updown) {
 
 		var str = "";
-		str += "<li>";
+		str += "<li class = 'liNo"+ guestbookVo.no +" '>";
 		str += "	<table> ";
 		str += "	  <tr>";
 		str += "		<td>[" + guestbookVo.no + "]</td>";
