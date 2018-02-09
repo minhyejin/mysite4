@@ -104,7 +104,7 @@ $("ul").on("click", ".deletebutton", function(){
 			success : function(no) {
 				if(no){
 					
-					$(".liNo"+ guestbookVo.no ).remove(); 
+					$(".liNo"+ guestbookVo.no).remove(); 
 					console.log(guestbookVo.no)
 					$("#del-pop").modal("hide");
 				   // location.reload();//새로고침1번  

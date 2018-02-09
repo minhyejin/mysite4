@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fileupload">
+
+	<insert id = "insert"  parameterType= "com.javaex.vo.FileUploadVo">
+		<![CDATA[
+		  	insert into attatchfile values (seq_attatchfile_no.nextval, #{savename} , #{fileSize} , #{filePath} , #{exname} , #{orgname} )
+				]]>
+	</insert>
+	<select id = "getList" resultType = "com.javaex.vo.FileUploadVo" >
+		<![CDATA[
+		  	select no, savename, file_size fileSize , file_path filePath , exname ,orgname
+		     from  attatchfile
+		    
+			]]>
+	</select>
+	<delete id = "delete" parameterType = "int" >
+		<![CDATA[
+		  	delete 
+		     from  attatchfile
+		     where no =#{no}
+		    
+			]]>
+	</delete>
+</mapper>

@@ -3,15 +3,15 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-	
 	<typeAlias alias="GuestbookVo" type="com.javaex.vo.GuestbookVo" />
 	<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
 	<typeAlias alias="BoardVo" type="com.javaex.vo.BoardVo" />
+	<typeAlias alias="FileUploadVo" type="com.javaex.vo.FileUploadVo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/guestbook.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
-		
+		<mapper resource="mybatis/mappers/fileupload.xml" />
 	</mappers>
 </configuration>
