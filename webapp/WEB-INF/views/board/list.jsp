@@ -15,26 +15,25 @@
 		
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.request.contextPath }/board/search" method="get">
+				<form id="search_form" action="${pageContext.request.contextPath }/board/list" method="get">
 					
 					<input type="text" id="kwd" name="kwd" value="">
-					 <input type = "hidden" name = "" value = "bList"> 
 					<input type="submit" value="찾기">
-				</form>
-			
+					 <%-- <input type = "hidden" name = "crtPage" value = "${bMap.crtPage }"> --%>
+				</form>		
 				<table class="tbl-ex">
 					<tr>
 						<th width ="10%">번호</th>
-						<th width ="20%">제목</th>
-						<th width ="20%">글쓴이</th>
-						<th width ="15%">조회수</th>
+						<th width ="30%">제목</th>
+						<th width ="15%">글쓴이</th>
+						<th width ="10%">조회수</th>
 						<th width ="25%">작성일</th>
 						<th width ="10%">&nbsp;</th>
 					</tr>
-					<c:forEach items = "${bList }" var ="boardVo" >		
+					<c:forEach items = "${bMap.boardList }" var ="boardVo"  >		
 						<tr>
 						<td>${boardVo.no }</td>
-						<td><a href="${pageContext.request.contextPath }/board/view?no=${boardVo.no }">${boardVo.title }</a></td>
+						<td><a href="${pageContext.request.contextPath }/board/view?no=${boardVo.no }&kwd=${bMap.kwd}&crtPage=${bMap.crtPage}">${boardVo.title }</a></td>
 						<td>${boardVo.writer}</td>
 						<td>${boardVo.hit }</td>
 						<td>${boardVo.regDate }</td>
@@ -46,17 +45,39 @@
 				</c:forEach>
 				</table>
 				<div class="pager">
-				
+
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li class="selected">3</li>
-						<li><a href="">4</a></li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
-					</ul>
+					<c:choose>
+					<c:when test ="${bMap.kwd == ''}">
+						<c:if test = "${bMap.prev }">
+						<li><a href="${pageContext.request.contextPath }/board/list?crtPage=${bMap.startPageBtnNo-1}">◀</a></li>
+						</c:if>
+						<c:forEach begin = "${bMap.startPageBtnNo }" end= "${bMap.endPageBtnNo }" var = "idx">
+						<li ><span style="font-weight:bold;"><a href="${pageContext.request.contextPath }/board/list?crtPage=${idx}">${idx }</a></span></li>
+						</c:forEach>
+		
+						<c:if test = "${bMap.next }">
+						<li><a href="${pageContext.request.contextPath }/board/list?crtPage=${bMap.endPageBtnNo+1}">▶</a></li>
+						</c:if>
+
+					</c:when >				
+					<c:otherwise>
 					
+						<c:if test = "${bMap.prev }">
+						<li><a href="${pageContext.request.contextPath }/board/list?kwd=${bMap.kwd }&crtPage=${bMap.startPageBtnNo-1}">◀</a></li>
+						</c:if>
+						<c:forEach begin = "${bMap.startPageBtnNo }" end= "${bMap.endPageBtnNo }" var = "idx">
+						<li ><a href="${pageContext.request.contextPath }/board/list?kwd=${bMap.kwd }&crtPage=${idx}">${idx }</a></li>
+						</c:forEach>
+		
+						<c:if test = "${bMap.next }">
+						<li><a href="${pageContext.request.contextPath }/board/list?kwd=${bMap.kwd }&crtPage=${bMap.endPageBtnNo+1}">▶</a></li>
+						</c:if>
+					</c:otherwise>
+
+					</c:choose>	
+					</ul>
+
 				</div>				
 				<div class="bottom">
 					<c:if test="${not empty authUser}">
@@ -64,10 +85,9 @@
 					</c:if>	
 				</div>				
 			</div>
-		</div>
-		
+		</div>	
 		<c:import url="/WEB-INF/views/includes/foot.jsp"></c:import> <!-- /footer -->
-		
+
 	</div>
 </body>
 </html>

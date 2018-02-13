@@ -35,8 +35,10 @@
 						</td>
 					</tr>
 				</table>
-				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board/list">글목록</a>
+				<div class="bottom" >
+					
+					<a href="${pageContext.request.contextPath }/board/list?crtPage=${param.crtPage}&kwd=${param.kwd}">글목록</a>
+					
 					<c:if test="${boardVo.userNo == authUser.no}">
 					<a href="${pageContext.request.contextPath }/board/modifyform?no=${boardVo.no}">글수정</a>
 					</c:if>
